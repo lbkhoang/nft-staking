@@ -44,11 +44,17 @@ export const GenesisCard = () => {
         args: [account]
     });
 
-    const nftId = [tokenOfOwner?.value[0][0]?.toNumber().toString()]
-
+    let nftId = [tokenOfOwner?.value[0][0]?.toNumber().toString()]
+    let methodCall
+    if (nftId[0] !== undefined) {
+        methodCall = 'earningInfo'
+    } else {
+        methodCall = 'balanceOf'
+        nftId = ["0x3fe5d3B04d7164d5f6529BA16c46f0CeBB30e91f"]
+    }
     const earned = useCall({
         contract: stakingContract,
-        method: 'earningInfo',
+        method: methodCall,
         args: nftId
     });
 
