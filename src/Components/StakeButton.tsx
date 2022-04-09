@@ -1,23 +1,23 @@
 import { useEthers } from "@usedapp/core"
 import { Button } from "@mui/material"
-import { useMintGenesisNFT } from "../hooks/mint";
+import { useStakeNFT } from "../hooks/approveAndStake";
 
-export const MintButton = () => {
-    const { account, activateBrowserWallet } = useEthers()
+export const StakeButton = () => {
+    const { account, activateBrowserWallet, deactivate } = useEthers()
     const isConnected = account !== undefined
 
-    const { mint, mintState, isWhitelisted } = useMintGenesisNFT(account)
+    const { approveAndStake, approveErc721State } = useStakeNFT(account)
     const handleStakeSubmit = () => {
-        return mint()
+        return approveAndStake(account)
     }
+
     return (
         <>
             {isConnected ? (
-                <Button 
-                    color="secondary" fullWidth
-                    variant="outlined"
-                    onClick={handleStakeSubmit}>
-                    Mint!!!
+                <Button color="secondary" fullWidth
+                variant="outlined" 
+                onClick={handleStakeSubmit}>
+                    Stake!!!
                 </Button>
             ) : (
                 <Button

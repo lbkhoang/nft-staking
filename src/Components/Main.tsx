@@ -14,7 +14,10 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
-import { Header } from './Header';
+import { WalletInfo } from './WalletInfo';
+import { StakeButton } from './StakeButton';
+import { MintButton } from './MintButton';
+import { GenesisCard } from './GenesisCard';
 
 function Copyright(props: any) {
   return (
@@ -30,18 +33,6 @@ function Copyright(props: any) {
 }
 
 const tiers = [
-  {
-    title: 'Genesis Node',
-    price: '0',
-    description: [
-      '10 users included',
-      '2 GB of storage',
-      'Help center access',
-      'Email support',
-    ],
-    buttonText: 'Sign up for free',
-    buttonVariant: 'outlined',
-  },
   {
     title: 'Pro',
     subheader: 'Most popular',
@@ -134,8 +125,7 @@ function PricingContent() {
               Support
             </Link>
           </nav>
-          
-          <Header />
+            <WalletInfo />
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
@@ -155,10 +145,19 @@ function PricingContent() {
           Quickly build an effective Pi-Node with just a few click.
           Monthly ROI: 21.75%, which means 261% increase on your investment every year !!!
         </Typography>
+        <Container maxWidth="sm" component="main" sx={{ pt: 3, pb: 3, pl: 17, pr: 17 }} >
+
+          <MintButton/>
+        </Container>
+        {/* <Container maxWidth="sm" component="main" sx={{ pt: 3, pb: 3, pl: 17, pr: 17}}>
+          <StakeButton/>
+
+        </Container> */}
       </Container>
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
+        <GenesisCard/>
           {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
             <Grid
@@ -224,6 +223,7 @@ function PricingContent() {
               </Card>
             </Grid>
           ))}
+
         </Grid>
       </Container>
       {/* Footer */}
