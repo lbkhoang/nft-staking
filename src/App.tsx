@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { DAppProvider, Config, BSCTestnet, BSC } from '@usedapp/core'
+import Pricing  from './Components/Main'
+
+const config: Config = {
+  readOnlyChainId: BSCTestnet.chainId,
+  readOnlyUrls: {
+    [BSCTestnet.chainId]: 'https://data-seed-prebsc-1-s2.binance.org:8545/',
+  },
+}
+
+const configMainnet: Config = {
+  readOnlyChainId: BSC.chainId,
+  readOnlyUrls: {
+    [BSC.chainId]: 'https://bsc-dataseed1.ninicoin.io/',
+  },
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DAppProvider config={config}>
+      <Pricing  />
+    </DAppProvider>
   );
 }
 
