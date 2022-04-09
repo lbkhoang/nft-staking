@@ -5,11 +5,12 @@ import nftAbi from '../abi/nftAbi.json'
 import { utils } from "ethers"
 import { Contract } from "@ethersproject/contracts"
 import { useEffect, useState } from "react"
+import { CONTRACT_ADDRESS } from "../constant/CONSTANT"
 
 export const useStakeToken = (tokenAddress : string) => {
     const {account} = useEthers()
     // tokenAbi
-    const tokenContractAddress = '0xa1d9C943388029493422fE9fF83163758880bABa';
+    const tokenContractAddress = CONTRACT_ADDRESS.TOKEN_CONTRACT_ADDRESS;
     const tokenInterface = new utils.Interface(tokenAbi);
     const tokenContract = new Contract(
         tokenContractAddress,
@@ -17,7 +18,7 @@ export const useStakeToken = (tokenAddress : string) => {
     )
 
     // nftAbi
-    const nftContractAddress = '0xc3cc20df24b714be6b817e167b33900944690b5d';
+    const nftContractAddress = CONTRACT_ADDRESS.NFT_CONTRACT_ADDRESS;
     const nftInterface = new utils.Interface(nftAbi);
     const nftContract = new Contract(
         nftContractAddress,
@@ -25,7 +26,7 @@ export const useStakeToken = (tokenAddress : string) => {
     )
 
     // stakingAbi
-    const stakingContractAddress = '0xa1d9C943388029493422fE9fF83163758880bABa';
+    const stakingContractAddress = CONTRACT_ADDRESS.STAKING_CONTRACT_ADDRESS;
     const stakingInterface = new utils.Interface(stakingAbi);
     const stakingContract = new Contract(
         stakingContractAddress,
@@ -45,7 +46,6 @@ export const useStakeToken = (tokenAddress : string) => {
     const [state, setState] = useState(approveErc20State)
 
     useEffect(() => {
-        console.log(approveErc20State.status === "Success")
         if(approveErc20State.status === "Success"){
             console.log("hello")
             mintNFT(account,3)
