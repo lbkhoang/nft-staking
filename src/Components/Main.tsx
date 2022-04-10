@@ -1,22 +1,13 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import StarIcon from '@mui/icons-material/StarBorder';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 import { WalletInfo } from './WalletInfo';
-import { StakeButton } from './StakeButton';
-import { MintButton } from './MintButton';
 import { GenesisCard } from './GenesisCard';
 
 function Copyright(props: any) {
@@ -106,7 +97,7 @@ function PricingContent() {
               href="#"
               sx={{ my: 1, mx: 1.5 }}
             >
-              Features
+              Home
             </Link>
             <Link
               variant="button"
@@ -114,7 +105,7 @@ function PricingContent() {
               href="#"
               sx={{ my: 1, mx: 1.5 }}
             >
-              Enterprise
+              App
             </Link>
             <Link
               variant="button"
@@ -122,14 +113,14 @@ function PricingContent() {
               href="#"
               sx={{ my: 1, mx: 1.5 }}
             >
-              Support
+              Marketplace
             </Link>
           </nav>
-            <WalletInfo />
+          <WalletInfo />
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
-      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }} >
         <Typography
           component="h1"
           variant="h2"
@@ -139,93 +130,55 @@ function PricingContent() {
         >
           Pricing
         </Typography>
-        <Typography variant="h5" align="center" color="text.secondary" component="p">
-          Pi Is The Digital Currency You Can Mine On Your Phone <div/>
+        <Typography variant="h5" align="center" color="text.secondary" component="p" sx={{ pt: 3, pb: 3, pl: 3, pr: 3 }}>
+          Pi Is The Digital Currency You Can Mine On Your Phone.
           Start earning cryptocurrency today with our Pi-Nodes, a lifetime of passive income.
           Quickly build an effective Pi-Node with just a few click.
           Monthly ROI: 21.75%, which means 261% increase on your investment every year !!!
         </Typography>
-        <Container maxWidth="sm" component="main" sx={{ pt: 3, pb: 3, pl: 17, pr: 17 }} >
-
-          <MintButton/>
-        </Container>
-        {/* <Container maxWidth="sm" component="main" sx={{ pt: 3, pb: 3, pl: 17, pr: 17}}>
-          <StakeButton/>
-
-        </Container> */}
       </Container>
       {/* End hero unit */}
-      <Container maxWidth="md" component="main">
+      {/*Genesis card container */}
+      <Container maxWidth="md" component="main" sx={{ pt: 3, pb: 3, pl: 7, pr: 3,
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          mt: 0,
+          py: [15, 8],
+        }}>
         <Grid container spacing={5} alignItems="flex-end">
-        <GenesisCard/>
-          {tiers.map((tier) => (
-            // Enterprise card is full width at sm breakpoint
-            <Grid
-              item
-              key={tier.title}
-              xs={12}
-              sm={tier.title === 'Enterprise' ? 12 : 6}
-              md={4}
-            >
-              <Card>
-                <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
-                  titleTypographyProps={{ align: 'center' }}
-                  action={tier.title === 'Pro' ? <StarIcon /> : null}
-                  subheaderTypographyProps={{
-                    align: 'center',
-                  }}
-                  sx={{
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === 'light'
-                        ? theme.palette.grey[200]
-                        : theme.palette.grey[700],
-                  }}
-                />
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'baseline',
-                      mb: 2,
-                    }}
-                  >
-                    <Typography component="h2" variant="h3" color="text.primary">
-                      ${tier.price}
-                    </Typography>
-                    <Typography variant="h6" color="text.secondary">
-                      /mo
-                    </Typography>
-                  </Box>
-                  <ul>
-                    {tier.description.map((line) => (
-                      <Typography
-                        component="li"
-                        variant="subtitle1"
-                        align="center"
-                        key={line}
-                      >
-                        {line}
-                      </Typography>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant={tier.buttonVariant as 'outlined' | 'contained'}
-                  >
-                    {tier.buttonText}
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-
+          <Typography
+            component="h1"
+            variant="h4"
+            align="left"
+            color="text.secondary"
+            gutterBottom
+          >
+            Genesis Node
+          </Typography>
+          <GenesisCard />
         </Grid>
       </Container>
+
+
+      {/*Genesis card container */}
+      <Container maxWidth="md" component="main" sx={{ pt: 3, pb: 3, pl: 7, pr: 3,
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          mt: 0,
+          py: [15, 8],
+        }}>
+        <Grid container spacing={5} alignItems="flex-end">
+          <Typography
+            component="h1"
+            variant="h4"
+            align="left"
+            color="text.secondary"
+            gutterBottom
+          >
+            Basic Node
+          </Typography>
+          <GenesisCard />
+        </Grid>
+      </Container>
+
       {/* Footer */}
       <Container
         maxWidth="md"
