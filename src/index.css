@@ -10,19 +10,14 @@ html {
 
 html,
 body {
-  background-color: hsl(290, 57%, 51%);
   margin: 0;
+  background-image: linear-gradient( 95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% );
 }
 
 body {
   display: grid;
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    hsl(295, 53%, 70%),
-    hsl(315, 63%, 52%),
-    hsl(278, 79%, 32%)
-  );
+  background-image: linear-gradient( 95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% );
 }
 
 body::backdrop {

@@ -1,12 +1,12 @@
 import { useContractFunction, useCall } from "@usedapp/core"
 import stakingAbi from '../abi/stakingAbi.json'
 import nftAbi from '../abi/nftAbi.json'
-import { utils } from "ethers"
+import { utils, BigNumber } from "ethers"
 import { Contract } from "@ethersproject/contracts"
 import { useEffect, useState } from "react"
 import { CONTRACT_ADDRESS } from "../constant/CONSTANT"
 
-export const useStakeNFT = (tokenAddress : string | null | undefined) => {
+export const useStakeNFT = (walletAddress : string | undefined) => {
     
     // nftAbi
     const nftContractAddress = CONTRACT_ADDRESS.NFT_CONTRACT_ADDRESS;
@@ -24,19 +24,36 @@ export const useStakeNFT = (tokenAddress : string | null | undefined) => {
         stakingInterface
     )
 
-    const nftIdArray = useCall({
-        contract: nftContract,
-        method: 'walletOfOwner',
-        args: [tokenAddress]
-    });
 
-    const nftId = [nftIdArray?.value[0][0]?.toNumber().toString()]
+    function useWalletOfOwner(walletAddress: string | undefined): BigNumber | undefined {
+        const { value, error } = useCall(walletAddress && {
+          contract: nftContract,
+          method: 'walletOfOwner',
+          args: [walletAddress]
+        }) ?? {}
+        if(error) {
+          console.error(error.message)
+          return undefined
+        }
+        return value?.[0]
+    }
+  
+    const nftId = useWalletOfOwner(walletAddress)?.[0]?.toString();
 
-    const isApprovedForAll = useCall({
-        contract: nftContract,
-        method: 'isApprovedForAll',
-        args: [tokenAddress, CONTRACT_ADDRESS.STAKING_CONTRACT_ADDRESS]
-    });
+    function useIsApprovedForAll(walletAddress: string | undefined): BigNumber | undefined {
+        const { value, error } = useCall(walletAddress && {
+          contract: nftContract,
+          method: 'isApprovedForAll',
+          args: [walletAddress, CONTRACT_ADDRESS.STAKING_CONTRACT_ADDRESS]
+        }) ?? {}
+        if(error) {
+          console.error(error.message)
+          return undefined
+        }
+        return value?.[0].toString()
+    }
+
+    const isApproved = useIsApprovedForAll(walletAddress);
 
     const { send: approveErc721Send, state: approveErc721State } =
     useContractFunction(nftContract, "setApprovalForAll", {
@@ -50,11 +67,11 @@ export const useStakeNFT = (tokenAddress : string | null | undefined) => {
             
 
     const approveAndStake = (amount: string | null | undefined) => {
-        if (isApprovedForAll?.value[0]) {
-            if (nftId[0] === undefined) {
-                alert("You need to mint nft to stake");
+        if (isApproved) {
+            if (nftId === undefined) {
+                //alert("You need Genesis Node in your wallet to stake");
             } else {
-                return stakeNFT(nftId)
+                return stakeNFT([nftId])
             }
         } else {
             return approveErc721Send(nftContractAddress, amount)
@@ -65,12 +82,9 @@ export const useStakeNFT = (tokenAddress : string | null | undefined) => {
 
     useEffect(() => {
         if(approveErc721State.status === "Success"){
-            // console.log("hello")
-            // console.log(nftId?.value[0])
-            // console.log()
-            stakeNFT(nftId)
+            stakeNFT([nftId])
         }
     }, [approveErc721State])
 
-    return { approveAndStake, approveErc721State }
+    return { approveAndStake, approveErc721State, nftId, stakeState }
 }
