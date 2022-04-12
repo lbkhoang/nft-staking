@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
+import logo from '../img/logo.png';
+import footerbg from '../img/footerbg.png';
 import { WalletInfo } from './WalletInfo';
 import { GenesisCard } from './GenesisCard';
 
@@ -23,6 +25,12 @@ function Copyright(props: any) {
   );
 }
 
+const styles = {
+  footers: {
+      backgroundImage: `url(${footerbg})`,
+      "background-size": "cover",
+  }
+};
 const tiers = [
   {
     title: 'Pro',
@@ -52,20 +60,6 @@ const tiers = [
 ];
 const footers = [
   {
-    title: 'Company',
-    description: ['Team', 'History', 'Contact us', 'Locations'],
-  },
-  {
-    title: 'Features',
-    description: [
-      'Cool stuff',
-      'Random feature',
-      'Team feature',
-      'Developer stuff',
-      'Another one',
-    ],
-  },
-  {
     title: 'Resources',
     description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
   },
@@ -84,9 +78,11 @@ function PricingContent() {
         position="static"
         color="default"
         elevation={0}
+        style={{ background: '#ffffff' }}
         sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
         <Toolbar sx={{ flexWrap: 'wrap' }}>
+          <img src={logo} width="45" height="45" />
           <Typography variant="h5" color="secondary" noWrap sx={{ flexGrow: 1 }}>
             Pi Node
           </Typography>
@@ -173,41 +169,64 @@ function PricingContent() {
             color="text.secondary"
             gutterBottom
           >
-            Basic Node
+            Standard Node
+          </Typography>
+          <GenesisCard />
+        </Grid>
+      </Container>
+
+      {/*Genesis card container */}
+      <Container maxWidth="md" component="main" sx={{ pt: 3, pb: 3, pl: 7, pr: 3,
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          mt: 0,
+          py: [15, 8],
+        }}>
+        <Grid container spacing={5} alignItems="flex-end">
+          <Typography
+            component="h1"
+            variant="h4"
+            align="left"
+            color="text.secondary"
+            gutterBottom
+          >
+            Pro Node
           </Typography>
           <GenesisCard />
         </Grid>
       </Container>
 
       {/* Footer */}
-      <Container
-        maxWidth="md"
-        component="footer"
-        sx={{
-          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-          mt: 8,
-          py: [3, 6],
-        }}
-      >
-        <Grid container spacing={4} justifyContent="space-evenly">
-          {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="text.primary" gutterBottom>
-                {footer.title}
-              </Typography>
-              <ul>
-                {footer.description.map((item) => (
-                  <li key={item}>
-                    <Link href="#" variant="subtitle1" color="text.secondary">
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Grid>
-          ))}
-        </Grid>
-        <Copyright sx={{ mt: 5 }} />
+      <Container maxWidth={false} style={styles.footers}>
+        <Container
+          maxWidth="md"
+          component="footer"
+          sx={{
+            borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+            mt: 8,
+            py: [3, 6],
+          }}
+        >
+          <Grid container spacing={4} justifyContent="space-evenly">
+            {footers.map((footer) => (
+              <Grid item xs={6} sm={3} key={footer.title}>
+                <Typography variant="h6" color="text.primary" gutterBottom>
+                  {footer.title}
+                </Typography>
+                <ul>
+                  {footer.description.map((item) => (
+                    <li key={item}>
+                      <Link href="#" variant="subtitle1" color="text.secondary">
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </Grid>
+            ))}
+          </Grid>
+          <Copyright sx={{ mt: 5 }} />
+        </Container>
+
       </Container>
       {/* End footer */}
     </React.Fragment>
