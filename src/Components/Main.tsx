@@ -17,7 +17,7 @@ function Copyright(props: any) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Pi Network
+        NFT Staking
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -31,33 +31,7 @@ const styles = {
       "background-size": "cover",
   }
 };
-const tiers = [
-  {
-    title: 'Pro',
-    subheader: 'Most popular',
-    price: '500',
-    description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
-    ],
-    buttonText: 'Get started',
-    buttonVariant: 'contained',
-  },
-  {
-    title: 'Enterprise',
-    price: 'TBA',
-    description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
-    ],
-    buttonText: 'Comming Soon',
-    buttonVariant: 'outlined',
-  },
-];
+
 const footers = [
   {
     title: 'Resources',
@@ -82,12 +56,11 @@ function PricingContent() {
         sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
         <Toolbar sx={{ flexWrap: 'wrap' }}>
-          <img src={logo} width="45" height="45" />
-          <Typography variant="h5" color="secondary" noWrap sx={{ flexGrow: 1 }}>
-            Pi Node
+          <Typography variant="h5" noWrap sx={{ flexGrow: 1 }}>
+            NFT Staking
           </Typography>
           <nav>
-            <Link
+            {/* <Link
               variant="button"
               color="text.primary"
               href="#"
@@ -110,7 +83,7 @@ function PricingContent() {
               sx={{ my: 1, mx: 1.5 }}
             >
               Marketplace
-            </Link>
+            </Link> */}
           </nav>
           <WalletInfo />
         </Toolbar>
@@ -149,47 +122,6 @@ function PricingContent() {
             gutterBottom
           >
             Genesis Node
-          </Typography>
-          <GenesisCard />
-        </Grid>
-      </Container>
-
-
-      {/*Genesis card container */}
-      <Container maxWidth="md" component="main" sx={{ pt: 3, pb: 3, pl: 7, pr: 3,
-          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-          mt: 0,
-          py: [15, 8],
-        }}>
-        <Grid container spacing={5} alignItems="flex-end">
-          <Typography
-            component="h1"
-            variant="h4"
-            align="left"
-            color="text.secondary"
-            gutterBottom
-          >
-            Standard Node
-          </Typography>
-          <GenesisCard />
-        </Grid>
-      </Container>
-
-      {/*Genesis card container */}
-      <Container maxWidth="md" component="main" sx={{ pt: 3, pb: 3, pl: 7, pr: 3,
-          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-          mt: 0,
-          py: [15, 8],
-        }}>
-        <Grid container spacing={5} alignItems="flex-end">
-          <Typography
-            component="h1"
-            variant="h4"
-            align="left"
-            color="text.secondary"
-            gutterBottom
-          >
-            Pro Node
           </Typography>
           <GenesisCard />
         </Grid>

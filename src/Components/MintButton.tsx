@@ -2,7 +2,7 @@ import { useEthers } from "@usedapp/core"
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
 import { red } from '@mui/material/colors';
-import { useMintGenesisNFT } from "../hooks/mint";
+import { useMintGenesisNFT } from "../hooks/useMint";
 import { useState } from "react";
 
 export const MintButton = () => {

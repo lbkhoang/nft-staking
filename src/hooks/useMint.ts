@@ -1,18 +1,11 @@
 import { useCall, useContractFunction } from "@usedapp/core"
-import nftAbi from '../abi/nftAbi.json'
-import { utils, BigNumber } from "ethers"
-import { Contract } from "@ethersproject/contracts"
-import { CONTRACT_ADDRESS } from "../constant/CONSTANT"
+import { BigNumber } from "ethers"
+import { NftContract } from "../contract/nftContract"
 
 export const useMintGenesisNFT = (walletAddress : string | undefined) => {
 
     // nftAbi
-    const nftContractAddress = CONTRACT_ADDRESS.NFT_CONTRACT_ADDRESS;;
-    const nftInterface = new utils.Interface(nftAbi);
-    const nftContract = new Contract(
-        nftContractAddress,
-        nftInterface
-    )
+    const nftContract = NftContract();
     
     function useWhitelist(walletAddress: string | undefined): BigNumber | undefined {
         const { value, error } = useCall(walletAddress && {

@@ -1,28 +1,17 @@
 import { useContractFunction, useCall } from "@usedapp/core"
-import stakingAbi from '../abi/stakingAbi.json'
-import nftAbi from '../abi/nftAbi.json'
-import { utils, BigNumber } from "ethers"
-import { Contract } from "@ethersproject/contracts"
+import { BigNumber } from "ethers"
 import { useEffect, useState } from "react"
 import { CONTRACT_ADDRESS } from "../constant/CONSTANT"
+import { StakingContract } from "../contract/stakingContract"
+import { NftContract } from "../contract/nftContract"
 
 export const useStakeNFT = (walletAddress : string | undefined) => {
     
     // nftAbi
-    const nftContractAddress = CONTRACT_ADDRESS.NFT_CONTRACT_ADDRESS;
-    const nftInterface = new utils.Interface(nftAbi);
-    const nftContract = new Contract(
-        nftContractAddress,
-        nftInterface
-    )
+    const nftContract = NftContract();
         
     // stakingAbi
-    const stakingContractAddress = CONTRACT_ADDRESS.STAKING_CONTRACT_ADDRESS;
-    const stakingInterface = new utils.Interface(stakingAbi);
-    const stakingContract = new Contract(
-        stakingContractAddress,
-        stakingInterface
-    )
+    const stakingContract = StakingContract();
 
 
     function useWalletOfOwner(walletAddress: string | undefined): BigNumber | undefined {
@@ -69,12 +58,12 @@ export const useStakeNFT = (walletAddress : string | undefined) => {
     const approveAndStake = (amount: string | null | undefined) => {
         if (isApproved) {
             if (nftId === undefined) {
-                //alert("You need Genesis Node in your wallet to stake");
+                //alert("You need NFT in your wallet to stake");
             } else {
                 return stakeNFT([nftId])
             }
         } else {
-            return approveErc721Send(nftContractAddress, amount)
+            return approveErc721Send(CONTRACT_ADDRESS.NFT_CONTRACT_ADDRESS, amount)
         }
     }
 
