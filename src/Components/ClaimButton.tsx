@@ -5,7 +5,7 @@ import { useState } from "react";
 import { red } from "@mui/material/colors";
 import { LoadingButton } from "@mui/lab";
 
-export const StakeButton = () => {
+export const ClaimButton = () => {
     const { account, activateBrowserWallet } = useEthers()
     const isConnected = account !== undefined
     const walletAddress = account?.toString();
@@ -53,7 +53,7 @@ export const StakeButton = () => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" color={color}>
-                        You need Genesis Node in your wallet to stake
+                        You need NFT in your wallet to stake
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -75,3 +75,4 @@ export const StakeButton = () => {
         </>
     )
 }
+

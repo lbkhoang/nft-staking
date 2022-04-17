@@ -6,20 +6,18 @@ import CardHeader from '@mui/material/CardHeader';
 import StarIcon from '@mui/icons-material/StarBorder';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import stakingAbi from '../abi/stakingAbi.json'
-import nftAbi from '../abi/nftAbi.json'
 import { BigNumber, utils } from "ethers"
 import { StakeButton } from './StakeButton';
-import { CONTRACT_ADDRESS } from '../constant/CONSTANT';
-import { Contract } from '@ethersproject/contracts';
 import { useCall, useEthers } from "@usedapp/core"
 import { Button, Container } from '@mui/material';
 import { MintButton } from './MintButton';
+import { StakingContract } from "../contract/stakingContract"
+import { NftContract } from "../contract/nftContract"
 
 export const GenesisCard = () => {
     const tier =
     {
-        title: 'Genesis Node',
+        title: 'NFT',
         price: '0',
         subheader: '',
         description: [
@@ -36,21 +34,11 @@ export const GenesisCard = () => {
     const isConnected = account !== undefined
     const walletAddress = account?.toString();
 
-    // stakingAbi
-    const stakingContractAddress = CONTRACT_ADDRESS.STAKING_CONTRACT_ADDRESS;
-    const stakingInterface = new utils.Interface(stakingAbi);
-    const stakingContract = new Contract(
-        stakingContractAddress,
-        stakingInterface
-    )
-
     // nftAbi
-    const nftContractAddress = CONTRACT_ADDRESS.NFT_CONTRACT_ADDRESS;
-    const nftInterface = new utils.Interface(nftAbi);
-    const nftContract = new Contract(
-        nftContractAddress,
-        nftInterface
-    )
+    const nftContract = NftContract();
+        
+    // stakingAbi
+    const stakingContract = StakingContract();
 
     function useBalanceOf(walletAddress: string | undefined): BigNumber | undefined {
         const { value, error } = useCall(walletAddress && {
@@ -80,7 +68,9 @@ export const GenesisCard = () => {
         return value?.[0]
     }
 
+    console.log(useTokensOfOwner(walletAddress)?.toString())
     const nftId = useTokensOfOwner(walletAddress)?.[0];
+
     const nftCount = useTokensOfOwner(walletAddress);
     const staked = (nftCount?.toString().match(/,/g) || []).length
 
@@ -110,14 +100,14 @@ export const GenesisCard = () => {
                     {/* ------------------------------------------------------------------------------------- */}
                     <Grid
                         item
-                        key='Genesis Node Wallet'
+                        key='NFT Wallet'
                         xs={12}
                         sm={tier.title === 'Enterprise' ? 12 : 6}
                         md={4}
                     >
                         <Card>
                             <CardHeader
-                                title='Node Owned'
+                                title='NFT Owned'
                                 subheader={tier.subheader}
                                 titleTypographyProps={{ align: 'center' }}
                                 action={tier.title === 'Pro' ? <StarIcon /> : null}
@@ -168,14 +158,14 @@ export const GenesisCard = () => {
                     {/* ------------------------------------------------------------------------------------- */}
                     <Grid
                         item
-                        key='Genesis Node Staked'
+                        key='NFT Staked'
                         xs={12}
                         sm={tier.title === 'Enterprise' ? 12 : 6}
                         md={4}
                     >
                         <Card>
                             <CardHeader
-                                title='Node Staked'
+                                title='NFT Staked'
                                 subheader={tier.subheader}
                                 titleTypographyProps={{ align: 'center' }}
                                 action={tier.title === 'Pro' ? <StarIcon /> : null}
@@ -226,14 +216,14 @@ export const GenesisCard = () => {
                     {/* ------------------------------------------------------------------------------------- */}
                     <Grid
                         item
-                        key='Genesis Node Earning'
+                        key='NFT Earning'
                         xs={12}
                         sm={tier.title === 'Enterprise' ? 12 : 6}
                         md={4}
                     >
                         <Card>
                             <CardHeader
-                                title='Node Earning'
+                                title='NFT Earning'
                                 subheader={tier.subheader}
                                 titleTypographyProps={{ align: 'center' }}
                                 action={tier.title === 'Pro' ? <StarIcon /> : null}
