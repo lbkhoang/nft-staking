@@ -95,7 +95,7 @@ export const GenesisCard = () => {
         <>
             <Container maxWidth="md" component="main">
                 <Grid container spacing={5} alignItems="flex-end">
-                    {/* ------------------------------------------------------------------------------------- */}
+                    {/* ------------------------------------------------------------------------- */}
                     <Grid
                         item
                         key='NFT Wallet'
