@@ -2,7 +2,7 @@ import { useCall, useContractFunction } from "@usedapp/core"
 import { BigNumber } from "ethers"
 import { StakingContract } from "../contract/stakingContract"
 
-export const useClaim = (walletAddress : string | undefined) => {
+export const useUnstake = (walletAddress : string | undefined) => {
 
     // stakingAbi
     const stakingContract = StakingContract();
@@ -22,11 +22,11 @@ export const useClaim = (walletAddress : string | undefined) => {
   
     const nftList = useTokensOfOwner(walletAddress)?.toString().split(",");
 
-    const { send: claimToken, state: claimState} = useContractFunction(stakingContract, "claim", { transactionName: "Claim" })
+    const { send: unstakeToken, state: unstakeState} = useContractFunction(stakingContract, "unstake", { transactionName: "Unstake" })
 
-    const claim = () => {
-        return claimToken(nftList)
+    const unstake = () => {
+        return unstakeToken(nftList)
     }
 
-    return { claim, claimState, nftList }
+    return { unstake, unstakeState, nftList }
 }

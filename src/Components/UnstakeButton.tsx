@@ -3,9 +3,9 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { useState } from "react";
 import { red } from "@mui/material/colors";
 import { LoadingButton } from "@mui/lab";
-import { useClaim } from "../hooks/useClaim";
+import { useUnstake } from "../hooks/useUnstake";
 
-export const ClaimButton = () => {
+export const UnstakeButton = () => {
     const { account, activateBrowserWallet } = useEthers()
     const isConnected = account !== undefined
     const walletAddress = account?.toString();
@@ -18,12 +18,12 @@ export const ClaimButton = () => {
         setNotice(false);
     };
 
-    const { claim, claimState , nftList } = useClaim(walletAddress)
+    const { unstake, unstakeState , nftList } = useUnstake(walletAddress)
     const handleStakeSubmit = () => {
         if (nftList === undefined) {
             setNotice(true);
         } else {
-            return claim()
+            return unstake()
         }
     }
 
@@ -35,10 +35,10 @@ export const ClaimButton = () => {
                 variant="outlined" 
                 onClick={handleStakeSubmit}
                 loading={
-                    claimState.status === "PendingSignature" ||
-                    claimState.status === "Mining"
+                    unstakeState.status === "PendingSignature" ||
+                    unstakeState.status === "Mining"
                 }>
-                    Claim!!!
+                    Unstake!!!
                 </LoadingButton>
                 <Dialog
                 open={notice}
@@ -51,7 +51,7 @@ export const ClaimButton = () => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" color={color}>
-                        You need to stake NFT in pool to claim
+                        You need to stake NFT in pool to unstake
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

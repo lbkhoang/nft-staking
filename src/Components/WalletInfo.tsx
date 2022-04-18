@@ -13,7 +13,7 @@ export const WalletInfo = () => {
             {isConnected ? (
                 <>                  
                 <Button color="secondary">
-                    {piNodeBalance && <p>{formatUnits(piNodeBalance, 9)}</p>}
+                    {piNodeBalance && <p>{Number(formatUnits(piNodeBalance, 18)).toFixed(3)}</p>}
                 </Button>
                 <div color="secondary">|</div>
                 <Button color="secondary" onClick={deactivate}>

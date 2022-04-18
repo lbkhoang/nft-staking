@@ -97,13 +97,24 @@ function PricingContent() {
           color="text.secondary"
           gutterBottom
         >
-          Pricing
+          Guide
         </Typography>
         <Typography variant="h5" align="center" color="text.secondary" component="p" sx={{ pt: 3, pb: 3, pl: 3, pr: 3 }}>
-          Pi Is The Digital Currency You Can Mine On Your Phone.
-          Start earning cryptocurrency today with our Pi-Nodes, a lifetime of passive income.
-          Quickly build an effective Pi-Node with just a few click.
-          Monthly ROI: 21.75%, which means 261% increase on your investment every year !!!
+          Switch to BSC test net: &nbsp;
+          <Link
+              color="text.secondary"
+              href="https://academy.binance.com/en/articles/connecting-metamask-to-binance-smart-chain">
+              Here
+          </Link><br/>
+          Get faucet BNB: &nbsp;         
+          <Link
+              color="text.secondary"
+              href="https://testnet.binance.org/faucet-smart">
+              Here
+          </Link><br/>
+          Mint NFT with test BNB 
+          <br/>
+          Stake it in the pool to earn reward
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -121,7 +132,7 @@ function PricingContent() {
             color="text.secondary"
             gutterBottom
           >
-            Genesis Node
+            NFT Staking
           </Typography>
           <GenesisCard />
         </Grid>

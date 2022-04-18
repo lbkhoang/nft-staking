@@ -9,10 +9,12 @@ import Grid from '@mui/material/Grid';
 import { BigNumber, utils } from "ethers"
 import { StakeButton } from './StakeButton';
 import { useCall, useEthers } from "@usedapp/core"
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import { MintButton } from './MintButton';
 import { StakingContract } from "../contract/stakingContract"
 import { NftContract } from "../contract/nftContract"
+import { ClaimButton } from './ClaimButton';
+import { UnstakeButton } from './UnstakeButton';
 
 export const GenesisCard = () => {
     const tier =
@@ -31,7 +33,6 @@ export const GenesisCard = () => {
     }
 
     const { account } = useEthers();
-    const isConnected = account !== undefined
     const walletAddress = account?.toString();
 
     // nftAbi
@@ -68,13 +69,11 @@ export const GenesisCard = () => {
         return value?.[0]
     }
 
-    console.log(useTokensOfOwner(walletAddress)?.toString())
-    const nftId = useTokensOfOwner(walletAddress)?.[0];
+    let nftId = useTokensOfOwner(walletAddress)?.toString().split(",");
+    nftId =  useTokensOfOwner(walletAddress)?.toString() === "" ? undefined : nftId;
+    let staked = useTokensOfOwner(walletAddress)?.toString() === "" ? 0 : nftId?.length;
 
-    const nftCount = useTokensOfOwner(walletAddress);
-    const staked = (nftCount?.toString().match(/,/g) || []).length
-
-    function useEarningInfo(nftId: string | undefined): BigNumber | undefined {
+    function useEarningInfo(nftId: string[] | undefined): BigNumber | undefined {
         const { value, error } = useCall(nftId && {
             contract: stakingContract,
             method: 'earningInfo',
@@ -88,10 +87,9 @@ export const GenesisCard = () => {
     }
 
     const earned = useEarningInfo(nftId);
-
     const earningNull = earned ? earned : BigNumber.from("0");
-
     const earning = utils.formatEther(earningNull).slice(0, 5);
+    console.log(earning)
 
     return (
         <>
@@ -267,38 +265,8 @@ export const GenesisCard = () => {
                                 </ul>
                             </CardContent>
                             <CardActions>
-                                {isConnected ? (
-                                    <Button
-                                        disabled
-                                        size="medium"
-                                        color="primary" fullWidth
-                                        variant="contained">
-                                        CLAIM
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        color="primary" fullWidth
-                                        variant="outlined">
-                                        Connect
-                                    </Button>
-                                )
-                                }
-                                {isConnected ? (
-                                    <Button
-                                        disabled
-                                        size="medium"
-                                        color="primary" fullWidth
-                                        variant="contained">
-                                        UNSTAKE
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        color="primary" fullWidth
-                                        variant="contained">
-                                        Connect
-                                    </Button>
-                                )
-                                }
+                                <ClaimButton/>
+                                <UnstakeButton/>
                             </CardActions>
                         </Card>
                     </Grid>
